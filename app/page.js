@@ -5,7 +5,7 @@ export default function Home() {
     <main className="container mx-auto px-4 py-8">
       <section className="text-center py-20">
         <h1 className="text-5xl font-bold mb-6">
-          Hi, I'm <span className="text-blue-600">John Doe</span>
+          Hi, I'm <span className="text-blue-600">Alain Ndizeye</span>
         </h1>
         <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
           I'm a passionate web developer who loves creating amazing digital 
