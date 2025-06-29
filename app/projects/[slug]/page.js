@@ -12,7 +12,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  const project = getProjectBySlug(params.slug)
+  const project = await getProjectBySlug(params.slug)
   
   if (!project) {
     return {
@@ -26,8 +26,8 @@ export async function generateMetadata({ params }) {
   }
 }
 
-export default function ProjectDetail({ params }) {
-  const project = getProjectBySlug(params.slug)
+export default async function ProjectDetail({ params }) {
+  const project = await getProjectBySlug(params.slug)
   
   if (!project) {
     notFound()
