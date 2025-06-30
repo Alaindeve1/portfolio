@@ -3,13 +3,16 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Github, Linkedin, Mail, Twitter } from 'lucide-react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { siteConfig } from '@/config/site';
-import { cn } from '@/lib/utils';
+import { Button } from '../components/ui/button';
+import { MainNav } from '../components/main-nav';
+import { SiteFooter } from '../components/site-footer';
+import { siteConfig } from '../config/site';
+import { cn } from '../lib/utils';
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
+      <MainNav />
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative overflow-hidden">
@@ -93,13 +96,13 @@ export default function Home() {
                   >
                     <Linkedin className="h-5 w-5" />
                   </a>
-                  <a
-                    href={siteConfig.links.email}
+                  <Link
+                    href="/contact"
                     className="text-muted-foreground hover:text-foreground transition-colors"
-                    aria-label="Email"
+                    aria-label="Contact"
                   >
                     <Mail className="h-5 w-5" />
-                  </a>
+                  </Link>
                 </motion.div>
               </div>
               
@@ -293,6 +296,7 @@ export default function Home() {
           </div>
         </section>
       </main>
+      <SiteFooter />
     </div>
   );
 }
