@@ -1,172 +1,232 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Github, Linkedin, Mail, Twitter } from 'lucide-react';
+import { ArrowRight, Github, Linkedin, Mail, Twitter, Code } from 'lucide-react';
 import Link from 'next/link';
-import { Button } from '../components/ui/button';
-import { MainNav } from '../components/main-nav';
-import { SiteFooter } from '../components/site-footer';
-import { siteConfig } from '../config/site';
-import { cn } from '../lib/utils';
+import { Button } from '@/components/ui/button';
+import { MainNav } from '@/components/main-nav';
+import { SiteFooter } from '@/components/site-footer';
+import { siteConfig } from '@/config/site';
+import { cn } from '@/lib/utils';
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
+  }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+};
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <MainNav />
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative overflow-hidden">
-          <div className="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-black [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)] dark:[background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]" />
+        <section className="relative overflow-hidden bg-gradient-to-b from-background to-muted/20">
+          <div className="absolute inset-0 -z-10 h-full w-full bg-grid-pattern [mask-image:linear-gradient(to_bottom,transparent,white_90%,white)] dark:[mask-image:linear-gradient(to_bottom,transparent,#000_90%,#000)]" />
           
-          <div className="container relative py-24 md:py-32 lg:py-40">
-            <div className="grid items-center gap-6 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_600px]">
-              <div className="space-y-4">
-                <motion.h1 
-                  className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  Hi, I'm{' '}
-                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    Alain Ndizeye
-                  </span>
-                </motion.h1>
-                
-                <motion.p 
-                  className="max-w-[600px] text-gray-600 dark:text-gray-300 md:text-xl"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 }}
-                >
-                  I'm a passionate web developer who loves creating amazing digital 
-                  experiences. Welcome to my portfolio!
-                </motion.p>
-                
-                <motion.div 
-                  className="flex flex-wrap gap-4 pt-4"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                >
-                  <Button asChild size="lg">
-                    <Link href="/projects">
-                      View My Work
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                  <Button variant="outline" size="lg" asChild>
-                    <Link href="/about">
-                      About Me
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </motion.div>
-                
-                <motion.div 
-                  className="flex gap-4 pt-2"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                >
-                  <a
-                    href={siteConfig.links.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                    aria-label="GitHub"
-                  >
-                    <Github className="h-5 w-5" />
-                  </a>
-                  <a
-                    href={siteConfig.links.twitter}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                    aria-label="Twitter"
-                  >
-                    <Twitter className="h-5 w-5" />
-                  </a>
-                  <a
-                    href={siteConfig.links.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                    aria-label="LinkedIn"
-                  >
-                    <Linkedin className="h-5 w-5" />
-                  </a>
-                  <Link
-                    href="/contact"
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                    aria-label="Contact"
-                  >
-                    <Mail className="h-5 w-5" />
-                  </Link>
-                </motion.div>
-              </div>
-              
+          <div className="section">
+            <div className="container">
               <motion.div 
-                className="relative"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
+                className="grid items-center gap-12 lg:grid-cols-2 lg:gap-8"
+                initial="hidden"
+                animate="visible"
+                variants={staggerContainer}
               >
-                <div className="relative z-10 w-full h-full max-w-[500px] mx-auto">
-                  <div className="aspect-square rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 p-1">
-                    <div className="h-full w-full rounded-[14px] bg-background p-4">
-                      <div className="h-full w-full rounded-lg bg-gradient-to-br from-blue-500/20 to-purple-600/20" />
+                <motion.div 
+                  className="space-y-6 md:space-y-8"
+                  variants={fadeInUp}
+                >
+                  <div className="space-y-4">
+                    <motion.h1 
+                      className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                    >
+                      Hi, I'm{' '}
+                      <span className="gradient-text">
+                        Alain Ndizeye
+                      </span>
+                    </motion.h1>
+                    
+                    <motion.p 
+                      className="text-lg md:text-xl text-muted-foreground max-w-2xl"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.3 }}
+                    >
+                      I'm a passionate web developer who loves creating amazing digital 
+                      experiences. Welcome to my portfolio!
+                    </motion.p>
+                  </div>
+                  
+                  <motion.div 
+                    className="flex flex-wrap gap-4 pt-2"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                  >
+                    <Button asChild size="lg" className="btn-primary">
+                      <Link href="/projects" className="group">
+                        View My Work
+                        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </Link>
+                    </Button>
+                    <Button variant="outline" size="lg" className="btn-outline" asChild>
+                      <Link href="/about" className="group">
+                        About Me
+                        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </Link>
+                    </Button>
+                  </motion.div>
+                  
+                  <motion.div 
+                    className="flex items-center gap-4 pt-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.5 }}
+                  >
+                    <span className="text-sm text-muted-foreground">Follow me:</span>
+                    <div className="flex gap-4">
+                      {[
+                        { 
+                          icon: Github, 
+                          href: siteConfig.links.github,
+                          label: 'GitHub'
+                        },
+                        { 
+                          icon: Twitter, 
+                          href: siteConfig.links.twitter,
+                          label: 'Twitter'
+                        },
+                        { 
+                          icon: Linkedin, 
+                          href: siteConfig.links.linkedin,
+                          label: 'LinkedIn'
+                        },
+                        { 
+                          icon: Mail, 
+                          href: '/contact',
+                          label: 'Contact'
+                        }
+                      ].map(({ icon: Icon, href, label }, index) => (
+                        <a
+                          key={label}
+                          href={href}
+                          target={!href.startsWith('/') ? '_blank' : undefined}
+                          rel="noopener noreferrer"
+                          className="text-muted-foreground hover:text-foreground transition-colors p-2 -m-2"
+                          aria-label={label}
+                        >
+                          <Icon className="h-5 w-5" />
+                        </a>
+                      ))}
+                    </div>
+                  </motion.div>
+                </motion.div>
+                
+                <motion.div 
+                  className="relative"
+                  variants={fadeInUp}
+                >
+                  <div className="relative z-10 aspect-square w-full max-w-md mx-auto rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/10 p-0.5 shadow-lg">
+                    <div className="h-full w-full rounded-2xl bg-background p-6 flex items-center justify-center">
+                      <div className="text-center space-y-4">
+                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary mx-auto">
+                          <Code className="h-8 w-8" />
+                        </div>
+                        <h3 className="text-xl font-semibold">Full-Stack Developer</h3>
+                        <p className="text-muted-foreground">Creating beautiful, responsive web applications</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="absolute -bottom-6 -left-6 h-32 w-32 rounded-full bg-blue-500/20 blur-3xl dark:bg-blue-400/20" />
-                <div className="absolute -top-6 -right-6 h-32 w-32 rounded-full bg-purple-500/20 blur-3xl dark:bg-purple-400/20" />
+                  <div className="absolute -bottom-4 -right-4 h-full w-full rounded-2xl border border-muted bg-muted/50 -z-10" />
+                </motion.div>
               </motion.div>
             </div>
           </div>
         </section>
-
+        
         {/* Skills Section */}
-        <section className="py-20">
+        <section className="section bg-muted/20">
           <div className="container">
             <motion.div 
-              className="text-center mb-12"
+              className="text-center max-w-3xl mx-auto mb-12"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5 }}
             >
-              <h2 className="text-3xl font-bold mb-4">My Skills</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                I've worked with a variety of technologies in the web development world.
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">My Skills</h2>
+              <p className="text-muted-foreground">
+                I work with modern technologies to build fast, accessible, and beautiful web applications.
               </p>
             </motion.div>
             
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {[
-                { name: 'JavaScript', icon: '💻' },
                 { name: 'React', icon: '⚛️' },
-                { name: 'Next.js', icon: '🌐' },
+                { name: 'Next.js', icon: '⏭️' },
+                { name: 'TypeScript', icon: '📘' },
                 { name: 'Node.js', icon: '🟢' },
-                { name: 'TypeScript', icon: '📝' },
                 { name: 'Tailwind CSS', icon: '🎨' },
+                { name: 'GraphQL', icon: '📊' },
+                { name: 'PostgreSQL', icon: '🐘' },
+                { name: 'Docker', icon: '🐳' },
               ].map((skill, index) => (
                 <motion.div
                   key={skill.name}
-                  className="flex flex-col items-center p-6 bg-card rounded-xl border hover:shadow-lg transition-shadow"
+                  className="card p-6 text-center hover:shadow-md transition-shadow"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
                 >
-                  <span className="text-4xl mb-3">{skill.icon}</span>
+                  <div className="text-4xl mb-3">{skill.icon}</div>
                   <h3 className="font-medium">{skill.name}</h3>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
-
+        
+        {/* CTA Section */}
+        <section className="section bg-gradient-to-r from-primary/5 to-secondary/5">
+          <div className="container text-center">
+            <motion.div 
+              className="max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Let's Build Something Amazing</h2>
+              <p className="text-xl text-muted-foreground mb-8">
+                Have a project in mind? I'd love to hear about it.
+              </p>
+              <Button asChild size="lg" className="btn-primary">
+                <Link href="/contact" className="group">
+                  Get In Touch
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
+            </motion.div>
+          </div>
+        </section>
         {/* Featured Projects */}
         <section className="py-20 bg-muted/50">
           <div className="container">
